@@ -214,8 +214,8 @@ static irqreturn_t edt_ft5x06_ts_isr(int irq, void *dev_id)
 			goto out;
 		}
 
-		if (!edt_ft5x06_ts_check_crc(tsdata, rdbuf, datalen))
-			goto out;
+		/*if (!edt_ft5x06_ts_check_crc(tsdata, rdbuf, datalen))
+			goto out; */
 	}
 
 	for (i = 0; i < MAX_SUPPORT_POINTS; i++) {
@@ -938,8 +938,8 @@ static int edt_ft5x06_i2c_ts_probe_dt(struct device *dev,
 	 * irq_pin is not needed for DT setup.
 	 * irq is associated via 'interrupts' property in DT
 	 */
-	tsdata->irq_pin = -EINVAL;
-	tsdata->reset_pin = of_get_named_gpio(np, "reset-gpios", 0);
+	tsdata->reset_pin = -EINVAL;
+	tsdata->irq_pin = of_get_named_gpio(np, "irq-gpio", 0);
 	tsdata->wake_pin = of_get_named_gpio(np, "wake-gpios", 0);
 
 	return 0;
